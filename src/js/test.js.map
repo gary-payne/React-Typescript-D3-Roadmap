@@ -1,0 +1,1 @@
+{"version":3,"sources":["test.ts"],"names":[],"mappings":"AACA,MAAM,CAAC,MAAM,GAAG;IACZ,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,CAAC;AAC5B,CAAC,CAAC","file":"test.js","sourcesContent":["\r\nwindow.onload = () => {\r\n    console.log(\"In here!\");\r\n};"],"sourceRoot":"/source/"}
