@@ -7,6 +7,7 @@ var GulpConfig = (function () {
         this.allLibraries = this.src + '/libs/*.js';
         this.allLibraryTypeScriptDefinitions = './typings/**/*.ts';
         this.sourceJS = this.src + '/js/';
+        this.rootJS = this.sourceJS + 'app.js'
 
         this.dist = './dist';
         this.librariesOutputPath = this.dist + '/libs';

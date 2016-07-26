@@ -70,7 +70,7 @@ gulp.task('compile', ['lint'], () => {
 gulp.task('package', ['include-libsAndPolyfills', 'compile'], () => {
 
     let bundler =  browserify({
-            entries: config.sourceJS + 'test.js',
+            entries: config.rootJS,
             debug: true //This provides sourcemapping
         })  //Initialising browserify
         //.external(['react', 'react-dom','sp-pnp-js']); //Removing the external libraries which will be available as <script> tags in the client page  
