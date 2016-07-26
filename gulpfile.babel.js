@@ -33,14 +33,14 @@ gulp.task('lint', () => {
  * Get the vendor JS polyfills to be uploaded 
  * (also any unbundled vendor libraries) 
  */
-gulp.task('include-libsAndPolyfills', () => {
+gulp.task('includeLibs', () => {
     return gulp.src([
             config.allLibraries,
             'node_modules/office-ui-fabric/dist/css/fabric.css',
             'node_modules/office-ui-fabric/dist/css/fabric.components.css',
             'node_modules/react/dist/react.js',
             'node_modules/react-dom/dist/react-dom.js',
-            'node_modules/sp-pnp-js/dist/pnp.js',
+            'node_modules/spscript/dist/v2/spscript.js',
             'node_modules/whatwg-fetch/fetch.js'])
         //.pipe(print()) //Use to write names of all included files to the console during running of this task
         .pipe(gulp.dest(config.librariesOutputPath));
@@ -67,13 +67,13 @@ gulp.task('compile', ['lint'], () => {
 /*
  *
  * */
-gulp.task('package', ['include-libsAndPolyfills', 'compile'], () => {
+gulp.task('package', ['includeLibs', 'compile'], () => {
 
     let bundler =  browserify({
             entries: config.rootJS,
             debug: true //This provides sourcemapping
         })  //Initialising browserify
-        //.external(['react', 'react-dom','sp-pnp-js']); //Removing the external libraries which will be available as <script> tags in the client page  
+        .external(['react', 'react-dom','./SPScript']); //Removing the external libraries which will be available as <script> tags in the client page  
 
     bundler.bundle() //start buindling
         .on('error', console.error.bind(console))
