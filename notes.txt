@@ -1,0 +1,9 @@
+Unhappily I have needed to add the index.d.ts declaration file for SPScript into the SPScript module folder (in node_modules), 
+as the relative paths in container components were breaking the compile 
+    (otherwise would need to copy the declration files as JS files to a declrations subfolder in the "js" interim folder) 
+
+NEXT - 
+1. Add https://github.com/Olical/react-faux-dom and use to create simple chart in a component/view (see https://github.com/QubitProducts/d3-react-sparkline and http://oli.me.uk/2015/09/09/d3-within-react-the-right-way/)
+2. Use D3 to draw simple chart in a Typescript class
+3. Use D3 to draw same chart in a React class
+4. Add timing around each to check their performance (will need to add lots of data points or lots of D3 processing!)

@@ -36,6 +36,7 @@ gulp.task('lint', () => {
 gulp.task('includeLibs', () => {
     return gulp.src([
             config.allLibraries,
+            'node_modules/d3/build/d3.js',
             'node_modules/office-ui-fabric/dist/css/fabric.css',
             'node_modules/office-ui-fabric/dist/css/fabric.components.css',
             'node_modules/react/dist/react.js',
@@ -67,13 +68,13 @@ gulp.task('compile', ['lint'], () => {
 /*
  *
  * */
-gulp.task('package', ['includeLibs', 'compile'], () => {
+gulp.task('package', ['compile'], () => {
 
     let bundler =  browserify({
             entries: config.rootJS,
             debug: true //This provides sourcemapping
         })  //Initialising browserify
-        .external(['react', 'react-dom','./SPScript']); //Removing the external libraries which will be available as <script> tags in the client page  
+        .external(['d3', 'react', 'react-dom','SPScript']); //Removing the external libraries which will be available as <script> tags in the client page  
 
     bundler.bundle() //start buindling
         .on('error', console.error.bind(console))
@@ -81,6 +82,24 @@ gulp.task('package', ['includeLibs', 'compile'], () => {
         .pipe(source(config.bundleFile)) // Pass desired output file name to vinyl-source-stream
         .pipe(gulp.dest(config.distOutputPath)); // Destination for the bundle
 })
+
+/*
+ * Upload the libraries to the SharePoint site
+ * NOTE - the username and password must be XML encoded, otherwise the spsave() call will fail with "invalid STS request"
+ */
+gulp.task('uploadLibs', ['includeLibs'], function () {
+    const settings = JSON.parse(fs.readFileSync("../settings.json"));    
+    return gulp.src(config.libsAndFilesToUpload)
+        .pipe(print())
+        .pipe(spsave({
+            username: settings.username,
+            password: settings.password,
+            siteUrl: settings.siteUrl,
+            folder: "SiteAssets",
+            notification: true
+        }));
+})
+
 /*
  * Upload ONLY the bundled file to the SharePoint site!
  * NOTE - the username and password must be XML encoded, otherwise the spsave() call will fail with "invalid STS request"

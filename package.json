@@ -18,6 +18,7 @@
     "babel-register": "^6.11.5",
     "browserify": "^13.1.0",
     "browserify-shim": "^3.8.12",
+    "d3": "^4.1.1",
     "exorcist": "^0.4.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
@@ -53,8 +54,9 @@
     ]
   },
   "browserify-shim": {
+    "d3": "global:d3",
     "react": "global:React",
     "react-dom": "global:ReactDOM",
-    "./SPScript": "global:SPScript"
+    "SPScript": "global:SPScript"
   }
 }
