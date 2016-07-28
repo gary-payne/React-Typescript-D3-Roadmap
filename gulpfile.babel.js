@@ -41,6 +41,7 @@ gulp.task('includeLibs', () => {
             'node_modules/office-ui-fabric/dist/css/fabric.components.css',
             'node_modules/react/dist/react.js',
             'node_modules/react-dom/dist/react-dom.js',
+            'node_modules/react-router/umd/ReactRouter.js',
             'node_modules/spscript/dist/v2/spscript.js',
             'node_modules/whatwg-fetch/fetch.js'])
         //.pipe(print()) //Use to write names of all included files to the console during running of this task
@@ -74,7 +75,7 @@ gulp.task('package', ['compile'], () => {
             entries: config.rootJS,
             debug: true //This provides sourcemapping
         })  //Initialising browserify
-        .external(['d3', 'react', 'react-dom','SPScript']); //Removing the external libraries which will be available as <script> tags in the client page  
+        .external(['d3', 'react', 'react-dom', 'react-router', 'SPScript']); //Removing the external libraries which will be available as <script> tags in the client page  
 
     bundler.bundle() //start buindling
         .on('error', console.error.bind(console))

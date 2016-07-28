@@ -9,6 +9,10 @@ var SPScript_1 = require("SPScript");
 var data_list_1 = require("../views/data-list");
 var DataListContainer = (function (_super) {
     __extends(DataListContainer, _super);
+    //NOTE - React-router parsing by TypeScript fails if an isRequired property is defined!! 
+    //This style of declaration is necessary for the compiler to find React.PropTypes definitions!
+    //static propTypes = { listName: React.PropTypes.string.isRequired };
+    //static defaultProps = { listName: "Some List Name" };
     function DataListContainer(props) {
         var _this = this;
         _super.call(this, props);
@@ -16,11 +20,11 @@ var DataListContainer = (function (_super) {
             data: []
         };
         var dao = new SPScript_1.RestDao(_spPageContextInfo.webAbsoluteUrl);
-        var dataList = dao.lists("TestData");
+        var dataList = dao.lists("TestData"); //this.props.listName);
         dataList.getItems().then(function (results) { _this.setState({ data: results }); });
     }
     DataListContainer.prototype.render = function () {
-        return (React.createElement(data_list_1.default, {data: this.state.data}));
+        return (React.createElement(data_list_1.default, {className: "sometestclass", data: this.state.data}));
     };
     return DataListContainer;
 }(React.Component));
